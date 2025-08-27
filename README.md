@@ -23,14 +23,17 @@ This project allows you to add, view, update, and delete student and teacher rec
    git clone https://github.com/abortedzesus/Student-Management-System.git
    cd Student-Management-System
 2. **Create a virtual environment**
+   ```bash
    python -m venv venv
-source venv/bin/activate   # For Linux/Mac
-venv\Scripts\activate      # For Windows
+   source venv/bin/activate   # For Linux/Mac
+   venv\Scripts\activate      # For Windows
 
-3. **Install Dependencies**
+4. **Install Dependencies**
+   ```bash
    pip install -r requirements.txt
 
-4. **Run the server**
+6. **Run the server**
+   ```bash
    python server.py
 
 
