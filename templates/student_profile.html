@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block title %}Student Profile{% endblock %}
+{% block content %}
+<h2 class="mb-3">Student Profile</h2>
+
+<!-- Student Personal Details -->
+<div class="card mb-4">
+  <div class="card-header bg-dark text-white">
+    Personal Details
+  </div>
+  <div class="card-body">
+    <p><strong>Name:</strong> {{ student['name'] }}</p>
+    <p><strong>Enrollment No:</strong> {{ student['enrollment_no'] }}</p>
+    <p><strong>Date of Birth:</strong> {{ student['dob'] }}</p>
+    <p><strong>Class:</strong> {{ student['class'] }} - {{ student['section'] }}</p>
+    <p><strong>Leaves Taken:</strong> {{ student['leaves_taken'] }}</p>
+  </div>
+</div>
+
+<!-- Pending Assignments -->
+<div class="card mb-4">
+  <div class="card-header bg-dark text-white">
+    Pending Assignments
+  </div>
+  <div class="card-body">
+    <table class="table table-bordered table-striped">
+      <thead class="table-dark">
+        <tr>
+          <th>Subject</th>
+          <th>Assignment</th>
+          <th>Due Date</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for a in assignments %}
+        <tr>
+          <td>{{ a['subject'] }}</td>
+          <td>{{ a['details'] }}</td>
+          <td>{{ a['due_date'] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Attendance Record -->
+<div class="card mb-4">
+  <div class="card-header bg-dark text-white">
+    Attendance
+  </div>
+  <div class="card-body">
+    <p><strong>Attendance Percentage:</strong> {{ student['attendance'] }}%</p>
+  </div>
+</div>
+
+<!-- Timetable -->
+<div class="card mb-4">
+  <div class="card-header bg-dark text-white">
+    Timetable
+  </div>
+  <div class="card-body">
+    <table class="table table-bordered table-striped">
+      <thead class="table-dark">
+        <tr>
+          <th>Day</th>
+          <th>Subject</th>
+          <th>Teacher</th>
+          <th>Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for t in timetable %}
+        <tr>
+          <td>{{ t['day'] }}</td>
+          <td>{{ t['subject'] }}</td>
+          <td>{{ t['teacher'] }}</td>
+          <td>{{ t['time'] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}

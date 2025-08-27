@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block title %}Student Timetable{% endblock %}
+{% block content %}
+<h2 class="mb-3">Your Timetable</h2>
+
+<div class="card mb-4">
+  <div class="card-header bg-dark text-white">
+    Timetable
+  </div>
+  <div class="card-body">
+    {% if timetable %}
+    <table class="table table-bordered table-striped">
+      <thead class="table-dark">
+        <tr>
+          <th>Day</th>
+          <th>Period 1</th>
+          <th>Period 2</th>
+          <th>Period 3</th>
+          <th>Period 4</th>
+          <th>Period 5</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for day in timetable %}
+        <tr>
+          <td>{{ day['day'] }}</td>
+          <td>{{ day['p1'] }}</td>
+          <td>{{ day['p2'] }}</td>
+          <td>{{ day['p3'] }}</td>
+          <td>{{ day['p4'] }}</td>
+          <td>{{ day['p5'] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+      <p>No timetable found.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+

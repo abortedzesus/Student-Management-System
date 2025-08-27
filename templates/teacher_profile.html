@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% block title %}Teacher Profile{% endblock %}
+{% block content %}
+<h2 class="mb-3">Teacher Dashboard</h2>
+
+<!-- Teacher Personal Details -->
+<div class="card mb-4">
+  <div class="card-header bg-dark text-white">
+    Personal Details
+  </div>
+  <div class="card-body">
+    <p><strong>Name:</strong> {{ teacher['name'] }}</p>
+    <p><strong>Teacher ID:</strong> {{ teacher['teacher_id'] }}</p>
+    <p><strong>Date of Birth:</strong> {{ teacher['dob'] }}</p>
+    <p><strong>Classes Teaching:</strong> {{ teacher['classes_teaching'] }}</p>
+  </div>
+</div>
+
+<!-- Today's Tasks -->
+<div class="card mb-4">
+  <div class="card-header bg-dark text-white">
+    Tasks for Today
+  </div>
+  <div class="card-body">
+    {% if tasks %}
+      <ul>
+        {% for task in tasks %}
+        <li>{{ task['task'] }} - <small>{{ task['deadline'] }}</small></li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No tasks for today.</p>
+    {% endif %}
+  </div>
+</div>
+
+<!-- Pending Tasks -->
+<div class="card mb-4">
+  <div class="card-header bg-dark text-white">
+    Pending Tasks
+  </div>
+  <div class="card-body">
+    {% if pending_tasks %}
+      <ul>
+        {% for task in pending_tasks %}
+        <li>{{ task['task'] }} - <small>{{ task['deadline'] }}</small></li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No pending tasks.</p>
+    {% endif %}
+  </div>
+</div>
+
+<!-- Student/Class List -->
+<div class="card mb-4">
+  <div class="card-header bg-dark text-white">
+    Student List
+  </div>
+  <div class="card-body">
+    <table class="table table-bordered table-striped">
+      <thead class="table-dark">
+        <tr>
+          <th>Enrollment No</th>
+          <th>Name</th>
+          <th>Class</th>
+          <th>Section</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for s in students %}
+        <tr>
+          <td>{{ s['enrollment_no'] }}</td>
+          <td>{{ s['name'] }}</td>
+          <td>{{ s['class'] }}</td>
+          <td>{{ s['section'] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% endblock %}

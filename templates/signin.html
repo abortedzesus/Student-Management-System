@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% block title %}Sign in{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-10 col-lg-8">
+    <div class="card shadow-sm rounded-4">
+      <div class="card-body p-4">
+        <h3 class="mb-3">Create an account</h3>
+        <form method="POST">
+          <div class="mb-3">
+            <label class="form-label">Role</label>
+            <select class="form-select" name="role" id="role" required>
+              <option value="">Choose...</option>
+              <option value="student">Student</option>
+              <option value="teacher">Teacher</option>
+            </select>
+          </div>
+
+          <div id="studentFields" class="d-none">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Name</label>
+                <input type="text" class="form-control" name="name" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Date of Birth</label>
+                <input type="date" class="form-control" name="dob" required>
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Email</label>
+                <input type="email" class="form-control" name="email">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Enrollment No.</label>
+                <input type="text" class="form-control" name="enrollment_no" required>
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Class (1-12)</label>
+                <input type="number" min="1" max="12" class="form-control" name="grade" required>
+              </div>
+              <div class="col-md-3">
+                <label class="form-label">Section (A-D)</label>
+                <select class="form-select" name="section" required>
+                  <option>A</option><option>B</option><option>C</option><option>D</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div id="teacherFields" class="d-none">
+            <div class="row g-3">
+              <div class="col-md-6">
+                <label class="form-label">Name</label>
+                <input type="text" class="form-control" name="name">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Date of Birth</label>
+                <input type="date" class="form-control" name="dob">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Gmail</label>
+                <input type="email" class="form-control" name="email">
+              </div>
+              <div class="col-md-6">
+                <label class="form-label">Teacher ID</label>
+                <input type="text" class="form-control" name="teacher_id">
+              </div>
+              <div class="col-12">
+                <label class="form-label">Classes (comma-separated, e.g. 6-A,7-B,8-A)</label>
+                <input type="text" class="form-control" name="classes" placeholder="1-A,2-B">
+              </div>
+            </div>
+          </div>
+
+          <button class="btn btn-dark w-100 mt-3" type="submit">Create account</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const role = document.getElementById('role');
+const studentFields = document.getElementById('studentFields');
+const teacherFields = document.getElementById('teacherFields');
+role.addEventListener('change', () => {
+  if (role.value === 'student') {
+    studentFields.classList.remove('d-none');
+    teacherFields.classList.add('d-none');
+  } else if (role.value === 'teacher') {
+    teacherFields.classList.remove('d-none');
+    studentFields.classList.add('d-none');
+  } else {
+    studentFields.classList.add('d-none');
+    teacherFields.classList.add('d-none');
+  }
+});
+</script>
+{% endblock %}

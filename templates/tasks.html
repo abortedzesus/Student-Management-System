@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Tasks{% endblock %}
+{% block content %}
+<h3 class="mb-3">Your Tasks</h3>
+<form method="POST" class="card p-4 rounded-4 shadow-sm mb-3">
+  <div class="row g-3">
+    <div class="col-md-8">
+      <label class="form-label">Task Title</label>
+      <input type="text" class="form-control" name="title" placeholder="e.g., Check homework for 6-A" required>
+    </div>
+    <div class="col-md-4">
+      <label class="form-label">Due Date</label>
+      <input type="date" class="form-control" name="due_date">
+    </div>
+  </div>
+  <div class="mt-3"><button class="btn btn-dark">Add Task</button></div>
+</form>
+
+<div class="table-responsive">
+  <table class="table table-striped align-middle">
+    <thead><tr><th>Title</th><th>Due</th><th>Status</th><th>Action</th></tr></thead>
+    <tbody>
+      {% for t in tasks %}
+      <tr>
+        <td>{{ t.title }}</td>
+        <td>{{ t.due_date or '-' }}</td>
+        <td>{{ t.status }}</td>
+        <td>
+          {% if t.status != 'Done' %}
+          <form method="POST" action="{{ url_for('task_done', task_id=t.id) }}">
+            <button class="btn btn-sm btn-success">Done</button>
+          </form>
+          {% else %}
+          <span class="text-muted">—</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% else %}
+      <tr><td colspan="4" class="text-muted">No tasks yet.</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

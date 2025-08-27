@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+{% block title %}Teacher Dashboard{% endblock %}
+{% block content %}
+<h3 class="mb-3">Teacher Dashboard</h3>
+<div class="row g-3">
+  <div class="col-lg-4">
+    <div class="card rounded-4 shadow-sm mb-3">
+      <div class="card-body">
+        <h5 class="card-title">{{ teacher.name }}</h5>
+        <p class="mb-1"><strong>ID:</strong> {{ teacher.teacher_id }}</p>
+        <p class="mb-1"><strong>DOB:</strong> {{ teacher.dob }}</p>
+        <p class="mb-1"><strong>Email:</strong> {{ teacher.email or '-' }}</p>
+        <p class="mb-0"><strong>Classes:</strong> {{ teacher.classes }}</p>
+      </div>
+    </div>
+    <div class="d-grid gap-2">
+      <a class="btn btn-dark" href="{{ url_for('upload_homework') }}">Upload Homework</a>
+      <a class="btn btn-outline-dark" href="{{ url_for('mark_attendance') }}">Mark Attendance</a>
+      <a class="btn btn_outline_dark btn btn-outline-dark" href="{{ url_for('tasks') }}">Manage Tasks</a>
+      <a class="btn btn-outline-secondary" href="{{ url_for('crud_students') }}">CRUD Students</a>
+      <a class="btn btn-outline-secondary" href="{{ url_for('crud_teachers') }}">CRUD Teachers</a>
+    </div>
+  </div>
+
+  <div class="col-lg-8">
+    <div class="card rounded-4 shadow-sm mb-3">
+      <div class="card-body">
+        <h6 class="mb-2">Your Timetable</h6>
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead><tr><th>Day</th><th>Subject</th><th>Time</th></tr></thead>
+            <tbody>
+              {% for t in timetable %}
+                <tr><td>{{ t.day }}</td><td>{{ t.subject }}</td><td>{{ t.time }}</td></tr>
+              {% else %}
+                <tr><td colspan="3" class="text-muted">No timetable added.</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card rounded-4 shadow-sm mb-3">
+          <div class="card-body">
+            <h6 class="mb-2">Tasks for Today</h6>
+            <ul class="list-group list-group-flush">
+              {% for t in tasks_today %}
+                <li class="list-group-item">{{ t.title }}{% if t.due_date %} — <small>{{ t.due_date }}</small>{% endif %}</li>
+              {% else %}
+                <li class="list-group-item text-muted">Nothing due today.</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card rounded-4 shadow-sm mb-3">
+          <div class="card-body">
+            <h6 class="mb-2">Pending Tasks</h6>
+            <ul class="list-group list-group-flush">
+              {% for t in pending_tasks %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <span>{{ t.title }}{% if t.due_date %} — <small>{{ t.due_date }}</small>{% endif %}</span>
+                  <form method="POST" action="{{ url_for('task_done', task_id=t.id) }}">
+                    <button class="btn btn-sm btn-success">Done</button>
+                  </form>
+                </li>
+              {% else %}
+                <li class="list-group-item text-muted">No pending tasks.</li>
+              {% endfor %}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card rounded-4 shadow-sm">
+      <div class="card-body">
+        <h6 class="mb-2">Students in your classes</h6>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead><tr><th>Name</th><th>Enrollment</th><th>Class</th><th>Email</th></tr></thead>
+            <tbody>
+              {% for s in students %}
+                <tr>
+                  <td>{{ s.name }}</td>
+                  <td>{{ s.enrollment_no }}</td>
+                  <td>{{ s.grade }}-{{ s.section }}</td>
+                  <td>{{ s.email or '-' }}</td>
+                </tr>
+              {% else %}
+                <tr><td colspan="4" class="text-muted">No students yet.</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

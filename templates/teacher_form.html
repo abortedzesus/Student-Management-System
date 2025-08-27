@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block title %}{{ action }} Teacher{% endblock %}
+{% block content %}
+<h3 class="mb-3">{{ action }} Teacher</h3>
+<form method="POST" class="card p-4 rounded-4 shadow-sm">
+  <div class="row g-3">
+    <div class="col-md-6">
+      <label class="form-label">Name</label>
+      <input type="text" class="form-control" name="name" value="{{ teacher.name if teacher else '' }}" required>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">DOB</label>
+      <input type="date" class="form-control" name="dob" value="{{ teacher.dob if teacher else '' }}" required>
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Email</label>
+      <input type="email" class="form-control" name="email" value="{{ teacher.email if teacher else '' }}">
+    </div>
+    <div class="col-md-6">
+      <label class="form-label">Teacher ID</label>
+      <input type="text" class="form-control" name="teacher_id" value="{{ teacher.teacher_id if teacher else '' }}" required>
+    </div>
+    <div class="col-12">
+      <label class="form-label">Classes (comma-separated, e.g. 6-A,7-B,8-A)</label>
+      <input type="text" class="form-control" name="classes" value="{{ teacher.classes if teacher else '' }}" required>
+    </div>
+  </div>
+  <div class="mt-3">
+    <button class="btn btn-dark">Save</button>
+    <a class="btn btn-outline-secondary" href="{{ url_for('crud_teachers') }}">Cancel</a>
+  </div>
+</form>
+{% endblock %}

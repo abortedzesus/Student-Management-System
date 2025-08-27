@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8 col-lg-6">
+    <div class="card shadow-sm rounded-4">
+      <div class="card-body p-4">
+        <h3 class="mb-3">Login</h3>
+        <form method="POST">
+          <div class="mb-3">
+            <label class="form-label">Role</label>
+            <select class="form-select" name="role" id="role" required>
+              <option value="">Choose...</option>
+              <option value="student">Student</option>
+              <option value="teacher">Teacher</option>
+            </select>
+          </div>
+
+          <div id="studentFields" class="d-none">
+            <div class="mb-3">
+              <label class="form-label">Name</label>
+              <input type="text" class="form-control" name="name" placeholder="Student Name">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Enrollment No.</label>
+              <input type="text" class="form-control" name="enrollment_no" placeholder="e.g. ENR1234">
+            </div>
+          </div>
+
+          <div id="teacherFields" class="d-none">
+            <div class="mb-3">
+              <label class="form-label">Name</label>
+              <input type="text" class="form-control" name="name" placeholder="Teacher Name">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Date of Birth</label>
+              <input type="date" class="form-control" name="dob">
+            </div>
+            <div class="mb-3">
+              <label class="form-label">Teacher ID</label>
+              <input type="text" class="form-control" name="teacher_id" placeholder="e.g. T-001">
+            </div>
+          </div>
+
+          <button class="btn btn-dark w-100 mt-2" type="submit">Login</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const role = document.getElementById('role');
+const studentFields = document.getElementById('studentFields');
+const teacherFields = document.getElementById('teacherFields');
+role.addEventListener('change', () => {
+  if (role.value === 'student') {
+    studentFields.classList.remove('d-none');
+    teacherFields.classList.add('d-none');
+  } else if (role.value === 'teacher') {
+    teacherFields.classList.remove('d-none');
+    studentFields.classList.add('d-none');
+  } else {
+    studentFields.classList.add('d-none');
+    teacherFields.classList.add('d-none');
+  }
+});
+</script>
+{% endblock %}

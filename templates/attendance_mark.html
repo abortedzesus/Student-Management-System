@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block title %}Mark Attendance{% endblock %}
+{% block content %}
+<h3 class="mb-3">Mark Attendance</h3>
+<form class="card p-4 rounded-4 shadow-sm mb-3" method="GET">
+  <div class="row g-3 align-items-end">
+    <div class="col-md-3">
+      <label class="form-label">Class</label>
+      <input type="number" name="grade" class="form-control" min="1" max="12" placeholder="1-12" required>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Section</label>
+      <select name="section" class="form-select" required>
+        <option>A</option><option>B</option><option>C</option><option>D</option>
+      </select>
+    </div>
+    <div class="col-md-3">
+      <button class="btn btn-dark" type="submit">Load Students</button>
+    </div>
+  </div>
+</form>
+
+{% if students %}
+<form class="card p-4 rounded-4 shadow-sm" method="POST">
+  <div class="row g-3 align-items-end">
+    <div class="col-md-3">
+      <label class="form-label">Date</label>
+      <input type="date" class="form-control" name="date" value="{{ today }}">
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Grade</label>
+      <input type="number" class="form-control" name="grade" value="{{ students[0].grade }}" readonly>
+    </div>
+    <div class="col-md-3">
+      <label class="form-label">Section</label>
+      <input type="text" class="form-control" name="section" value="{{ students[0].section }}" readonly>
+    </div>
+  </div>
+
+  <div class="table-responsive mt-3">
+    <table class="table table-bordered align-middle">
+      <thead><tr><th>Name</th><th>Enrollment</th><th>Status</th></tr></thead>
+      <tbody>
+        {% for s in students %}
+        <tr>
+          <td>{{ s.name }}</td>
+          <td>{{ s.enrollment_no }}</td>
+          <td>
+            <select class="form-select" name="student_{{ s.id }}">
+              <option>Present</option>
+              <option>Absent</option>
+              <option>Leave</option>
+            </select>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <button class="btn btn-dark">Save Attendance</button>
+</form>
+{% else %}
+<div class="text-muted">Choose class & section to load students.</div>
+{% endif %}
+{% endblock %}

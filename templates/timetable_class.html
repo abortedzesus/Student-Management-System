@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Class Timetable{% endblock %}
+{% block content %}
+<h2 class="mb-3">Class Timetable</h2>
+<table class="table table-bordered table-striped">
+  <thead class="table-dark">
+    <tr>
+      <th>Class</th>
+      <th>Section</th>
+      <th>Day</th>
+      <th>Subject</th>
+      <th>Teacher</th>
+      <th>Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for t in timetable %}
+    <tr>
+      <td>{{ t['class'] }}</td>
+      <td>{{ t['section'] }}</td>
+      <td>{{ t['day'] }}</td>
+      <td>{{ t['subject'] }}</td>
+      <td>{{ t['teacher'] }}</td>
+      <td>{{ t['time'] }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

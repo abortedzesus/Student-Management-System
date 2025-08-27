@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Assignments{% endblock %}
+{% block content %}
+<h2 class="mb-3">Pending Assignments</h2>
+
+<div class="card mb-4">
+  <div class="card-header bg-dark text-white">
+    Assignments
+  </div>
+  <div class="card-body">
+    {% if assignments %}
+    <table class="table table-bordered table-striped">
+      <thead class="table-dark">
+        <tr>
+          <th>Title</th>
+          <th>Subject</th>
+          <th>Deadline</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for a in assignments %}
+        <tr>
+          <td>{{ a['title'] }}</td>
+          <td>{{ a['subject'] }}</td>
+          <td>{{ a['deadline'] }}</td>
+          <td>{{ a['status'] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+      <p>No pending assignments.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

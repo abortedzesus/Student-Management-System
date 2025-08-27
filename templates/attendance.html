@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block title %}Attendance Record{% endblock %}
+{% block content %}
+<h2 class="mb-3">Attendance Record</h2>
+
+<div class="card mb-4">
+  <div class="card-header bg-dark text-white">
+    Attendance Summary
+  </div>
+  <div class="card-body">
+    <p><strong>Total Classes:</strong> {{ total_classes }}</p>
+    <p><strong>Classes Attended:</strong> {{ attended }}</p>
+    <p><strong>Leaves Taken:</strong> {{ leaves }}</p>
+    <p><strong>Attendance %:</strong> {{ percentage }}%</p>
+  </div>
+</div>
+
+<div class="card mb-4">
+  <div class="card-header bg-dark text-white">
+    Daily Attendance Record
+  </div>
+  <div class="card-body">
+    {% if attendance %}
+    <table class="table table-bordered table-striped">
+      <thead class="table-dark">
+        <tr>
+          <th>Date</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for record in attendance %}
+        <tr>
+          <td>{{ record['date'] }}</td>
+          <td>{{ record['status'] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+      <p>No attendance records found.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
+
